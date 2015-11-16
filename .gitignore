@@ -1,3 +1,4 @@
 *.out
 .DS_Store
 *.hack
+09/**/*.vm

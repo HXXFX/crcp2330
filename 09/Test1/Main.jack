@@ -1,0 +1,138 @@
+//Hello World
+
+class Main 
+{
+
+static int direction, x, y, size;
+
+function void main()
+{
+	
+    //var int x, y;
+    //var int size;
+
+	var int xfood, yfood;
+    var int sizefood;
+		var char key;
+        var boolean exit;
+
+    let x = 10;
+    let y = 10;
+    let size = 30;
+
+    let xfood = 480;
+    let yfood = 150;
+    let sizefood = 20;
+
+
+        
+        let exit = false;
+
+
+	//draw player
+ 	do Screen.setColor(true);
+    do Screen.drawRectangle(x, y, x + size, y + size);
+    //draw food
+ 	do Screen.setColor(true);
+    do Screen.drawRectangle(xfood, yfood, xfood + sizefood, yfood + sizefood);
+
+
+
+    while (~exit) {
+            // waits for a key to be pressed.
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                do moveSquare();
+            }
+            if (key = 131) {
+                let direction = 1;
+            }
+            if (key = 133) {
+                let direction = 2;
+            }
+            if (key = 130) {
+                let direction = 3;
+            }
+            if (key = 132) {
+                let direction = 4;
+            }
+
+            // waits for the key to be released.
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do moveSquare();
+            }
+        }
+
+
+    return;
+
+} //end main
+
+method void moveSquare() {
+        if (direction = 1) {
+            do square.moveUp();
+        }
+        if (direction = 2) {
+            do square.moveDown();
+        }
+        if (direction = 3) {
+            do square.moveLeft();
+        }
+        if (direction = 4) {
+            do square.moveRight();
+        }
+
+        do Sys.wait(5); // Delays the next movement.
+        return;
+    }
+
+   
+    method void moveUp() {
+        if (y > 1) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
+            let y = y - 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + size, y + 1);
+        }
+        return;
+    }
+
+    
+    method void moveDown() {
+        if ((y + size) < 254) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + size, y + 1);
+            let y = y + 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
+        }
+        return;
+    }
+
+    
+    method void moveLeft() {
+        if (x > 1) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
+            let x = x - 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x, y, x + 1, y + size);
+        }
+        return;
+    }
+
+    
+    method void moveRight() {
+        if ((x + size) < 510) {
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x, y, x + 1, y + size);
+            let x = x + 2;
+            do Screen.setColor(true);
+            do Screen.drawRectangle((x + size) - 1, y, x + size, y + size);
+        }
+        return;
+    }
+
+} //end main class
