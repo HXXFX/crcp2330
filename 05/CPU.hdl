@@ -40,4 +40,46 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+
+    Mux16(a= instruction, b= fromALUtoMux161andDRegister, sel= instruction[15], out= fromMux161toARegister); //1
+    
+    And(a = instruction[15], b = instruction[5], out = part1); //Cinstruction and destA(A=A+1)
+    Not(in = instruction[15], out = notinstruction15);
+    Or(a = part1, b = notinstruction15, out = loadforARegister); //or Ainstruciton
+    ARegister(in= fromMux161toARegister,load = loadforARegister, out[0..14]= addressM, out = fromARgistertoPC, out = fromARegistertoMux162); 
+
+    Mux16(a= fromARegistertoMux162, b=inM, sel= instruction[12],out= fromMux162toALU); //2 ////instruction[12] to determent A or M 
+
+    And(a = instruction[15], b = instruction[4], out = turnonDRegisterload); //Cinstruction and destD
+    DRegister(in= fromALUtoMux161andDRegister, load = turnonDRegisterload, out= fromDRegistertoALU); 
+
+    ALU(x= fromDRegistertoALU,y= fromMux162toALU,zx= instruction[11],nx= instruction[10],zy= instruction[9],ny= instruction[8],f= instruction[7],no= instruction[6],out= outM, out = fromALUtoMux161andDRegister,  zr= ALUzr,ng= ALUng); 
+
+    Not(in = ALUzr, out = notALUzr);
+    Not(in = ALUng, out = notALUng);
+    //JGT
+    And(a = notALUng, b = notALUzr, out = gtz);
+    And(a = gtz, b = instruction[0], out = truejgt); 
+    //JEQ
+    And(a = ALUzr, b = instruction[1], out = truejeq);
+    //JLT
+    And(a = ALUng, b = instruction[2], out = truejlt);
+    //JGE
+    And(a = truejgt, b = truejeq, out = truejge);
+    //JLE
+    And(a = truejlt, b = truejeq, out = truejle);
+    //JNE
+    And(a = notALUzr, b = instruction[0], out = tempjne);
+    And(a = tempjne, b = instruction[2], out = truejne);
+    //JMP
+    And(a = instruction[0], b = instruction[1], out = tempjmp);
+    And(a = tempjmp, b = instruction[2], out = truejmp);
+    //!!!!!!!!!!!!
+    Or8Way(in[0] = truejgt, in[1] = truejeq, in[2] = truejlt, in[3] = truejge, in[4] = truejle, in[5] = truejne, in[6] = truejmp, in[7] = false, out = jump);
+    And(a = jump, b = instruction[15], out = loadPC);
+    PC(in=fromARgistertoPC, load= loadPC, inc=true, reset=reset, out[0..14]=pc); 
+
+    And(a = instruction[15], b = instruction[3], out = writeM);
+
+
 }
