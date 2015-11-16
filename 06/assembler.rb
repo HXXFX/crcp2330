@@ -5,6 +5,7 @@
 # Tip: Ruby File I/O
 # Tip: ARGV
 
-file = File.open("add/Add.asm", "r")
+file = File.open(ARGV[0], "r")
 contents = file.read
 puts contents
+
