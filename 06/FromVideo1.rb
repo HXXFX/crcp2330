@@ -7,6 +7,17 @@
 #Any non nil value == ture
 #nil and false == false
 
+class Assembler
+	def initialize(asm_file, hack_file) #constrctor
+	@asm_file = asm_file #member variable
+	@hack_file = hack_file 
+	end
+
+	def assemble! #method
+		puts @asm_file.read #read give the content of the file
+	end
+end
+
 def arg_valid?
 	ARGV[0] && ARGV[0].end_with?(".asm") && ARGV.length == 1
 end
@@ -37,7 +48,7 @@ asm_filename = ARGV[0]
 #puts asm_file.read #read give the content of the file
 
 File.open(asm_filename) do |asm_file|
-	File.open(hack_filename, 'w') do |hack_file|
+	File.open(hack_filename(asm_filename), 'w') do |hack_file|
 	assembler = Assembler.new(asm_file, hack_file)
 	assembler.assemble!
 	end
