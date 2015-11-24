@@ -12,16 +12,20 @@ def arg_valid?
 end
 
 def arg_readable?(path)
-	File.reable?(path)	
+	File.readable?(path)	
 end
 
 	unless arg_valid?
 	 	abort(" Do this way MOTHERF*CKER-> ruby ThisFileName.rb GoodShit.asm")
 	end
 
-	unless arg_readable?(asm_filename)
-		abort(" #{asm_filename} not found or is unreadable")
+AsmFileName = ARGV[0]
+
+	unless arg_readable?(AsmFileName)
+		abort(" #{AsmFileName} not found or is unreadable")
 	end
 		
-	puts " The contents of #{asm_filename}"
+	puts " The contents of #{AsmFileName}"
 
+AsmFile = File.open(AsmFileName)
+puts AsmFile.read #read give the content of the file
