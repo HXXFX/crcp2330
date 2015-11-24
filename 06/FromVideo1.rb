@@ -15,6 +15,12 @@ def arg_readable?(path)
 	File.readable?(path)	
 end
 
+def hack_filename(asm_filename)
+	asm_basename = File.basename(asm_filename, '.asm') #basename only keep basename delete .
+	path = File.split(asm_filename)[0] #split [0] get the path other then file name
+	"#{path}/#{asm_basename}.hack" 
+end
+
 	unless arg_valid?
 	 	abort(" Do this way MOTHERF*CKER-> ruby ThisFileName.rb GoodShit.asm")
 	end
@@ -31,9 +37,6 @@ asm_filename = ARGV[0]
 #puts asm_file.read #read give the content of the file
 
 File.open(asm_filename) do |asm_file|
-	asm_basename = File.basename(asm_filename, '.asm') #basename only keep basename delete .
-	path = File.split(asm_filename)[0] #split [0] get the path other then file name
-	hack_filename = "#{path}/#{asm_basename}.hack" 
 	File.open(hack_filename, 'w') do |hack_file|
 	assembler = Assembler.new(asm_file, hack_file)
 	assembler.assemble!
