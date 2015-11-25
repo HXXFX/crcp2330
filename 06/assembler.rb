@@ -1,8 +1,6 @@
 #! /usr/bin/env ruby
 
-#if there is one argument 
-#	and the argument ends in .asm
-#	then we good
+require_relative 'parser'
 
 #Any non nil value == ture
 #nil and false == false
@@ -11,10 +9,7 @@ class Assembler
 	def initialize(asm_file, hack_file) #constrctor
 	@asm_file = asm_file #member variable
 	@hack_file = hack_file 
-
-	@asm_instructions = instructions_from_file
-	p @asm_instructions
-	#@parser = Parser.new(@asm_instructions)
+	@parser = Parser.new(instructions_from_file)
 	end
 
 	def assemble! #method
