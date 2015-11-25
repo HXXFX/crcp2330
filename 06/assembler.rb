@@ -14,9 +14,10 @@ class Assembler
 
 	def assemble! #method
 		#puts @asm_file.read #read give the content of the file
-		
-		# hack_instructions = parser.assemble
-		# @hack_file << hack_instructions
+		hack_instructions = @parser.parse
+		hack_instructions.each do |instruction|
+			@hack_file << instruction << "\n"
+		end
 	end
 
 	def instructions_from_file
