@@ -11,12 +11,30 @@ class Assembler
 	def initialize(asm_file, hack_file) #constrctor
 	@asm_file = asm_file #member variable
 	@hack_file = hack_file 
+
+	@asm_instructions = instructions_from_file
+	p @asm_instructions
+	#@parser = Parser.new(@asm_instructions)
 	end
 
 	def assemble! #method
-		puts @asm_file.read #read give the content of the file
+		#puts @asm_file.read #read give the content of the file
+		
+		# hack_instructions = parser.assemble
+		# @hack_file << hack_instructions
 	end
-end
+
+	def instructions_from_file
+		lines = @asm_file.readlines #readlines puts each line into an array
+		lines.each do |line|
+			line.gsub! /\/\/.*/, ''  #gsub! ignore line start witn //
+			line.strip! #strip! ignore end line char /n
+		end
+		lines.delete("") #delete the empty boxes in the array
+		return lines
+	end
+
+end#end Assembler class
 
 def arg_valid?
 	ARGV[0] && ARGV[0].end_with?(".asm") && ARGV.length == 1
@@ -53,15 +71,3 @@ File.open(asm_filename) do |asm_file|
 	assembler.assemble!
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
