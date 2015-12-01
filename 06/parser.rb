@@ -29,9 +29,6 @@ class Parser
 	end
 
 	def assemble_c_command(instruction)
-		#"1110000000000000"
-		"hello".include? "lo"   #=> true
-
 		if instruction.include?"="
 		all_ass_parts1 = instruction.split(%r{=\s*})
 		comp_ass_part = all_ass_parts1[1]

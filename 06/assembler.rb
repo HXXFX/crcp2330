@@ -7,9 +7,9 @@ require_relative 'parser'
 
 class Assembler
 	def initialize(asm_file, hack_file) #constrctor
-	@asm_file = asm_file #member variable
-	@hack_file = hack_file 
-	@parser = Parser.new(instructions_from_file)
+		@asm_file = asm_file #member variable
+		@hack_file = hack_file 
+		@parser = Parser.new(instructions_from_file)
 	end
 
 	def assemble! #method

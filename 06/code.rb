@@ -9,7 +9,6 @@ class Code
 		'AM'  => '101',
 		'AD'  => '110',
 		'AMD' => '111'
-
 	}
 
 	COMP = {
