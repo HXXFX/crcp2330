@@ -56,7 +56,7 @@ end#end Assembler class
 			abort(" #{asm_filename} not found or is unreadable")
 		end
 			
-		#puts " The contents of #{asm_filename}"
+	#puts " The contents of #{asm_filename}"
 	#asm_file = File.open(asm_filename)
 	#puts asm_file.read #read give the content of the file	
 

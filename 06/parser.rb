@@ -1,3 +1,5 @@
+require_relative 'code'
+
 class Parser
 
 	def initialize (assembly_instructions)
@@ -27,7 +29,24 @@ class Parser
 	end
 
 	def assemble_c_command(instruction)
-		"1110000000000000"
+		#"1110000000000000"
+		"hello".include? "lo"   #=> true
+
+		if instruction.include?"="
+		all_ass_parts1 = instruction.split(%r{=\s*})
+		comp_ass_part = all_ass_parts1[1]
+		dest_ass_part = all_ass_parts1[0]
+		jump_ass_part = all_ass_parts1[2]
+		end
+		
+		if instruction.include?";"
+		all_ass_parts2 = instruction.split(%r{;\s*})
+		comp_ass_part = all_ass_parts2[0]
+		dest_ass_part = all_ass_parts2[2]
+		jump_ass_part = all_ass_parts2[1]
+		end
+
+		instruction = "111#{Code.comp(comp_ass_part)}#{Code.dest(dest_ass_part)}#{Code.jump(jump_ass_part)}"
 	end
 
 	def command_type(instruction)

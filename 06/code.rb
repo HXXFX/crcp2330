@@ -1,7 +1,7 @@
 class Code
 
 	DEST = {  #dest hash table dictionary
-		nil   =>    '', #if nil return ""
+		nil   => '000', #if nil return ""
 		'M'   => '001', #if M return "001"
 		'D'   => '010',
 		'MD'  => '011',
@@ -41,29 +41,29 @@ class Code
 		'D-M'  => '1010011',
 		'M-D'  => '1000111',
 		'D&M'  => '1000000',
-		'D|M'  => '1010101',
+		'D|M'  => '1010101'
 	}
 
 	JUMP = {
-		nil   =>    '',
+		nil   => '000',
 		'JGT' => '001', 
 		'JEQ' => '010', 
 		'JGE' => '011', 
 		'JLT' => '100', 
 		'JNE' => '101', 
 		'JLE' => '110', 
-		'JMP' => '111', 
+		'JMP' => '111' 
 	}
 
-	def dest(value)
+	def self.dest(value)
 		DEST[value]
 	end
 
-	def comp(value)
+	def self.comp(value)
 		COMP[value]
 	end
 
-	def jump(value)
+	def self.jump(value)
 		JUMP[value]
 	end
 
