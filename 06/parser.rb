@@ -61,12 +61,14 @@ class Parser
 	end
 
 	def symbolize_labels
-
+		instruction_address = 0
+		@assembly_instructions.each do |instruction|
 			if instruction.start_with?"("
-				counter = counter + 1
-				name = instruction[counter].delete"(", ")"
-				value = @assembly_instructions.rindex(instruction[counter]) + 1
-				SymbolTable.add_entry(name, value)
+				name_temp = instruction.delete "(" 
+				name = 	name_temp.chop
+				SymbolTable.add_entry(name, instruction_address)
+			else
+				instruction_address += 1
 			end
 		end
 	end

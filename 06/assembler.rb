@@ -47,7 +47,7 @@ end#end Assembler class
 	end	
 
 		unless arg_valid?
-		 	abort(" Do this way MOTHERF*CKER-> ruby ThisFileName.rb GoodShit.asm")
+		 	abort(" Do this way MOTHERF*CKER-> ruby assembler.rb goodshit/GoodShit.asm")
 		end	
 
 	asm_filename = ARGV[0]	
