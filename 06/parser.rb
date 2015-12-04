@@ -1,4 +1,5 @@
 require_relative 'code'
+require_relative 'symbol_table'
 
 class Parser
 
@@ -6,9 +7,14 @@ class Parser
 		@assembly_instructions = assembly_instructions
 		#p @assembly_instructions
 		@machine_instructions = []
+		@symbolize_labels = assembly_instructions
 	end
 
 	def parse
+		
+		symbolize_labels
+		puts SymbolTable::SYMBOLS
+		abort
 		@assembly_instructions.each do |instruction|
 			if command_type(instruction) == :a_command #sybole: represent values with meaning 
 				@machine_instructions << assemble_a_command(instruction)
@@ -52,6 +58,17 @@ class Parser
 		else
 			return :c_command		
 		end	
+	end
+
+	def symbolize_labels
+
+			if instruction.start_with?"("
+				counter = counter + 1
+				name = instruction[counter].delete"(", ")"
+				value = @assembly_instructions.rindex(instruction[counter]) + 1
+				SymbolTable.add_entry(name, value)
+			end
+		end
 	end
 
 end #end Parser class
