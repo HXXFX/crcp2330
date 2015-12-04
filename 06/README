@@ -1,0 +1,3 @@
+On the git hub the version with commit "finish symbol LESS ver" is the working one. 
+
+open the termieral and go to the folder contain assembler.rb and run this, ruby assembler.rb TheThingYouWantToAssemble.asm. 
